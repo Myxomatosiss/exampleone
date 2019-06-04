@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.FindBy;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import static base.Settings.*;
 
 
 public class FirstTests {
@@ -22,23 +24,40 @@ public class FirstTests {
     @FindBy(xpath = "//input[@value='Log In']")
     WebElement buttonLogIn;
 
-    @Test
-    public void firstExampleTest (){
-
-        System.setProperty("webdriver.chrome.driver","/Users/macbook/Documents/Repo Automation/exampleone/src/resources/chromedriver");
+    @BeforeSuite
+    public void setUp(){
+        System.setProperty("webdriver.chrome.driver", RESOURCES + CHROMEDRIVER);
 
         chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("start-maximized");
         driver = new ChromeDriver(chromeOptions);
+    }
 
-        driver.navigate().to("https://www.facebook.com/");
+    @AfterSuite
+    public void tearDown(){
+        driver.quit();
+    }
+
+    @BeforeMethod
+    public void navigateToBaseUrl(){
+        driver.navigate().to(BASE_URL);
+    }
+
+    @Test
+    public void firstExampleTest (){
 
         driver.findElement(By.id("email")).sendKeys("someemail@address.com");
-
         driver.findElement(By.id("pass")).sendKeys("password");
 
         driver.findElement(By.xpath("//input[@value='Log In']")).click();
+    }
 
-        //driver.quit();
+    @Test
+    public void secondTest(){
+
+        driver.findElement(By.id("email")).sendKeys("someemail@address.com");
+        driver.findElement(By.id("pass")).sendKeys("password");
+
+        driver.findElement(By.xpath("//input[@value='Log In']")).click();
     }
 }
