@@ -1,63 +1,27 @@
 package tests;
 
+import base.BaseTest;
+import base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.FindBy;
 import org.testng.annotations.*;
 
-import static base.Settings.*;
 
-
-public class FirstTests {
-    private WebDriver driver = null;
-    private ChromeOptions chromeOptions = null;
-
-    @FindBy(id = "email")
-    WebElement inputEmail;
-
-    @FindBy(id = "pass")
-    WebElement inputPassword;
-
-    @FindBy(xpath = "//input[@value='Log In']")
-    WebElement buttonLogIn;
-
-    @BeforeSuite
-    public void setUp(){
-        System.setProperty("webdriver.chrome.driver", RESOURCES + CHROMEDRIVER);
-
-        chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("start-maximized");
-        driver = new ChromeDriver(chromeOptions);
-    }
-
-    @AfterSuite
-    public void tearDown(){
-        driver.quit();
-    }
-
-    @BeforeMethod
-    public void navigateToBaseUrl(){
-        driver.navigate().to(BASE_URL);
-    }
+public class FirstTests extends BaseTest {
 
     @Test
     public void firstExampleTest (){
 
-        driver.findElement(By.id("email")).sendKeys("someemail@address.com");
-        driver.findElement(By.id("pass")).sendKeys("password");
+        faceBookPage.inputEnterEmail("someemail@address.com");
+        faceBookPage.inputEnterPassword("password");
+        faceBookPage.btnClick();
 
-        driver.findElement(By.xpath("//input[@value='Log In']")).click();
     }
 
     @Test
     public void secondTest(){
 
-        driver.findElement(By.id("email")).sendKeys("someemail@address.com");
-        driver.findElement(By.id("pass")).sendKeys("password");
-
-        driver.findElement(By.xpath("//input[@value='Log In']")).click();
+        faceBookPage.inputEnterEmail("someemail@address.com");
+        faceBookPage.inputEnterPassword("password");
+        faceBookPage.btnClick();
     }
 }
