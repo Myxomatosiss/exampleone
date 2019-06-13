@@ -40,4 +40,5 @@ public class BaseTest {
     private BasePage initBasePage (){
         return PageFactory.initElements(driver,BasePage.class);
     }
+
 }
