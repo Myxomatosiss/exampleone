@@ -15,19 +15,38 @@ public class FacebookLoginAttemptPage extends BasePage {
     @FindBy(id = "loginbutton")
     WebElement buttonLogIn;
 
+    @FindBy(xpath = "//div[@role='alert' and text()='The email or phone number you’ve entered doesn’t match any account. ']")
+    public WebElement wrongCredentialsAlert;
+
     public FacebookLoginAttemptPage(WebDriver iDriver) {
         super(iDriver);
     }
 
-    public void btnClick(){
-        buttonLogIn.click();
+    public FacebookHomePage clickLogInBtnSuccess(){
+        webElement = buttonLogIn;
+        clickButton();
+        return initFacebookHomePage();
     }
 
-    public void inputEnterEmail(String userEmail){
-        inputEmail.sendKeys(userEmail);
+    public FacebookLoginAttemptPage clickLogInBtnFail(){
+        webElement = buttonLogIn;
+        clickButton();
+        return initFacebookLoginAttemptPage();
     }
 
-    public void inputEnterPassword(String userPassword){
-        inputPassword.sendKeys(userPassword);
+    public boolean isWrongCredentialsAlertDisplayed(){
+        webElement = wrongCredentialsAlert;
+        return isElementDislplayed();
     }
+
+    public void enterEmail(String userEmail){
+        webElement = inputEmail;
+        enterText(userEmail);
+    }
+
+    public void enterPassword(String userPass){
+        webElement = inputPassword;
+        enterText(userPass);
+    }
+
 }

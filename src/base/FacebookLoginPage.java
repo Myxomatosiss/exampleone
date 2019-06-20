@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class FacebookLoginPage extends BasePage{
+public class FacebookLoginPage extends BasePage {
 
     @FindBy(id = "email")
     WebElement inputEmail;
@@ -19,17 +19,26 @@ public class FacebookLoginPage extends BasePage{
         super(iDriver);
     }
 
-    public void inputEnterEmail(String userEmail){
-        inputEmail.sendKeys(userEmail);
+    public FacebookHomePage clickLogInBtnSuccess(){
+        webElement = buttonLogIn;
+        clickButton();
+        return initFacebookHomePage();
     }
 
-    public void inputEnterPassword(String userPassword){
-        inputPassword.sendKeys(userPassword);
+    public FacebookLoginAttemptPage clickLogInBtnFail(){
+        webElement = buttonLogIn;
+        clickButton();
+        return initFacebookLoginAttemptPage();
     }
 
-    public FacebookLoginAttemptPage btnLogInClick(){
-        buttonLogIn.click();
-        return new FacebookLoginAttemptPage(driver);
+    public void enterEmail(String userEmail){
+        webElement = inputEmail;
+        enterText(userEmail);
+    }
+
+    public void enterPassword(String userPassword){
+        webElement = inputPassword;
+        enterText(userPassword);
     }
 
 }

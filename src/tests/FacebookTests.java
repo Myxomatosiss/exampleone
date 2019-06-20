@@ -1,31 +1,40 @@
 package tests;
 
 import base.BaseTest;
+import base.FacebookHomePage;
 import base.FacebookLoginAttemptPage;
-import base.FacebookLoginPage;
 import org.testng.annotations.Test;
 
 
 public class FacebookTests extends BaseTest {
 
-    private FacebookLoginPage facebookLoginPage = new FacebookLoginPage(driver);
-    private FacebookLoginAttemptPage facebookLoginAttemptPage = null;
+    private FacebookLoginAttemptPage facebookLoginAttemptPage;
+    private FacebookHomePage facebookHomePage;
+
+    String userEmail = "emailemail@address.com";
+    String userPass = "pass";
 
     @Test
     public void loginFail (){
-        facebookLoginPage = initFacebookLoginPage();
-        facebookLoginPage.inputEnterEmail("someemail@address.com");
-        facebookLoginPage.inputEnterPassword("password");
 
-        facebookLoginAttemptPage = facebookLoginPage.btnLogInClick();
+        facebookLoginPage.enterEmail(userEmail);
+        facebookLoginPage.enterPassword(userPass);
+        facebookLoginAttemptPage = facebookLoginPage.clickLogInBtnFail();
+
+        facebookLoginAttemptPage.enterEmail(userEmail);
+        facebookLoginAttemptPage.enterPassword(userPass);
+        facebookLoginAttemptPage.clickLogInBtnFail();
+
+        assert facebookLoginAttemptPage.isWrongCredentialsAlertDisplayed();
+
     }
 
-    @Test
-    public void secondTest(){
-        facebookLoginAttemptPage = initFacebookLoginAttemptPage();
-        facebookLoginAttemptPage.inputEnterEmail("someemail@address.com");
-        facebookLoginAttemptPage.inputEnterPassword("password");
-
-        facebookLoginAttemptPage.btnClick();
-    }
+  //  @Test
+   // public void secondTest(){
+   //     facebookLoginAttemptPage = initFacebookLoginAttemptPage();
+   //     facebookLoginAttemptPage.inputEnterEmail("someemail@address.com");
+   //     facebookLoginAttemptPage.inputEnterPassword("password");
+//
+   //     facebookLoginAttemptPage.btnClick();
+  //  }
 }
