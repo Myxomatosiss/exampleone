@@ -1,27 +1,31 @@
 package tests;
 
 import base.BaseTest;
-import base.BasePage;
-import org.openqa.selenium.By;
-import org.testng.annotations.*;
+import base.FacebookLoginAttemptPage;
+import base.FacebookLoginPage;
+import org.testng.annotations.Test;
 
 
-public class FirstTests extends BaseTest {
+public class FacebookTests extends BaseTest {
+
+    private FacebookLoginPage facebookLoginPage = new FacebookLoginPage(driver);
+    private FacebookLoginAttemptPage facebookLoginAttemptPage = null;
 
     @Test
-    public void firstExampleTest (){
+    public void loginFail (){
+        facebookLoginPage = initFacebookLoginPage();
+        facebookLoginPage.inputEnterEmail("someemail@address.com");
+        facebookLoginPage.inputEnterPassword("password");
 
-        faceBookPage.inputEnterEmail("someemail@address.com");
-        faceBookPage.inputEnterPassword("password");
-        faceBookPage.btnClick();
-
+        facebookLoginAttemptPage = facebookLoginPage.btnLogInClick();
     }
 
     @Test
     public void secondTest(){
+        facebookLoginAttemptPage = initFacebookLoginAttemptPage();
+        facebookLoginAttemptPage.inputEnterEmail("someemail@address.com");
+        facebookLoginAttemptPage.inputEnterPassword("password");
 
-        faceBookPage.inputEnterEmail("someemail@address.com");
-        faceBookPage.inputEnterPassword("password");
-        faceBookPage.btnClick();
+        facebookLoginAttemptPage.btnClick();
     }
 }

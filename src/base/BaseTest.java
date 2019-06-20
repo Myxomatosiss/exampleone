@@ -15,7 +15,6 @@ public class BaseTest {
     public WebDriver driver = null;
     public ChromeOptions chromeOptions = null;
 
-    public BasePage faceBookPage = null;
 
     @BeforeSuite
     public void setUp(){
@@ -24,7 +23,8 @@ public class BaseTest {
         chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("start-maximized");
         driver = new ChromeDriver(chromeOptions);
-        faceBookPage = initBasePage();
+
+        driver.navigate().to(BASE_URL);
     }
 
     @AfterSuite
@@ -32,13 +32,17 @@ public class BaseTest {
         driver.quit();
     }
 
-    @BeforeMethod
-    public void navigateToBaseUrl(){
-        driver.navigate().to(BASE_URL);
+    //@BeforeMethod
+    //public void navigateToBaseUrl(){
+      //  driver.navigate().to(BASE_URL);
+    //}
+
+    public FacebookLoginPage initFacebookLoginPage (){
+        return PageFactory.initElements(driver, FacebookLoginPage.class);
     }
 
-    private BasePage initBasePage (){
-        return PageFactory.initElements(driver,BasePage.class);
+    public FacebookLoginAttemptPage initFacebookLoginAttemptPage (){
+        return PageFactory.initElements(driver, FacebookLoginAttemptPage.class);
     }
 
 }
